@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+</head>
+
+<body>
+    User name:<input id="user">
+    pwd :<input id="pwd">
+    <button onclick="login()">login</button>
+    <button onclick="membersOnly()">test members only</button>
+    <script>
+        const SERVER = "http://127.0.0.1:8000/"
+        // test
+        // axios(SERVER +"test").then(res => console.log(res.data)) 
+
+        // login
+        const login = () => {
+            axios.post(SERVER + "login/", {
+                "username": user.value,
+                "password": pwd.value
+            }).then(res => localStorage.setItem('token',res.data.access))
+        }
+
+        // member only
+        const membersOnly=()=>{
+        token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        };
+        axios(SERVER + "member", config).then(res => console.log(res.data))
+    }
+    </script>
+</body>
+
+</html>
