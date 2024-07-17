@@ -10,8 +10,8 @@ urlpatterns = [
     path('member', views.member),
     path('products/', views.product, name='product_list'),
     path('products/<int:id>/', views.product, name='product_detail'),
+    path('books/', views.book_view),
+    path('books/<int:id>/', views.book_view),
     path('login/', TokenObtainPairView.as_view()),
     path('register/', views.register),
-
-
 ]
