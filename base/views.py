@@ -1,5 +1,5 @@
-
 from django.shortcuts import get_object_or_404
+from base.serializers import BookSerializer, ProductSerializer
 from .models import Product,Book
 from decimal import Decimal
 from django.contrib.auth.models import User
@@ -8,7 +8,6 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework import serializers
 
 # register
 @api_view(['POST'])
@@ -41,16 +40,6 @@ def member(req):
 @api_view(['GET'])
 def allpub(req):
     return Response({'test':'public'})
-
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = '__all__'
-
-class BookSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Book
-        fields = '__all__'
 
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def product(request, id=None):
@@ -87,8 +76,6 @@ def product(request, id=None):
             return Response ("not found")    
         product.delete()
         return Response ({'message': 'Product caput successfully'})
-
-
 
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def book_view(request, id=None):
